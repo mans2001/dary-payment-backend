@@ -18,14 +18,15 @@ const allowed = [
   'http://localhost:3000',
 ].filter(Boolean);
 
+// ── CORS ─────────────────────────────────────────────────────
 app.use(cors({
-  origin: (origin, cb) => {
-    // السماح لـ mobile apps (مفيش origin) والـ frontend URL
-    if (!origin || allowed.includes(origin)) return cb(null, true);
-    cb(new Error(`CORS blocked: ${origin}`));
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: [
+    'Content-Type', 
+    'Authorization',
+    'ngrok-skip-browser-warning'
+  ],
 }));
 
 // ── Body Parsers ──────────────────────────────────────────────
